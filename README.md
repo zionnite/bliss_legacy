@@ -1,4 +1,4 @@
-# oga_bliss
+# bliss_legacy
 
 A new Flutter project.
 
