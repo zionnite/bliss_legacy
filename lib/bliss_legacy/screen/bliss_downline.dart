@@ -40,9 +40,9 @@ class _BlissDownlineState extends State<BlissDownline> {
         admin_status = admin_status1;
         isUserLogin = isUserLogin1;
 
-        //TODO: COME HERE AND DELETE THIS
-        user_id = '38';
-        admin_status = false;
+        // //TODO: COME HERE AND DELETE THIS
+        // user_id = '38';
+        // admin_status = false;
       });
 
       await blissDownlineController.getUsers(1, user_id);
