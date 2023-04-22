@@ -228,7 +228,7 @@ class _UsersWidgetState extends State<UsersWidget> {
                 ),
                 smallBtnIcon(
                   btnName: 'Send Email',
-                  btnColor: Colors.green,
+                  btnColor: Colors.blue,
                   onTap: widget.onMessageTap,
                   icon: Icons.email,
                   icon_color: Colors.white,

@@ -14,7 +14,7 @@ class AmenitiesWidget extends StatelessWidget {
             (isYes == 'yes')
                 ? const Icon(
                     Icons.check,
-                    color: Colors.green,
+                    color: Colors.blue,
                   )
                 : const Icon(
                     Icons.cancel,

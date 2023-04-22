@@ -253,7 +253,7 @@ class _ProductPropertyPageState extends State<ProductPropertyPage> {
                       Get.to(() => EditBasicDetail(model: props));
                     },
                     title: 'Edit Basic Detail',
-                    bgColor: Colors.green,
+                    bgColor: Colors.blue,
                     card_margin: const EdgeInsets.all(10),
                     container_margin: const EdgeInsets.all(10),
                   ),

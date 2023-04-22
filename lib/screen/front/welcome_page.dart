@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:oga_bliss/home_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:oga_bliss/screen/front/signup_page.dart';
 
-import 'decide_page.dart';
 import 'login_page.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -42,7 +40,7 @@ class _WelcomePageState extends State<WelcomePage> {
               Column(
                 children: const [
                   Text(
-                    'Find Your Dream Home',
+                    'Start Earning with Bliss Legacy',
                     style: TextStyle(
                       fontSize: 28,
                       fontFamily: 'Passion One',
@@ -50,7 +48,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     ),
                   ),
                   Text(
-                    'OgaBliss, has the best and finest agents that will connect you with your dream home',
+                    'Become a Property Owner while you earn quick money with Bliss Legacy',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
@@ -99,7 +97,7 @@ class _WelcomePageState extends State<WelcomePage> {
                             padding: const EdgeInsets.symmetric(vertical: 20),
                           ),
                           onPressed: () {
-                            Get.offAll(() => const DecidePage());
+                            Get.offAll(() => SignupPage(usersType: 'm_user'));
                           },
                           child: const Text(
                             'SignUp',
@@ -110,24 +108,6 @@ class _WelcomePageState extends State<WelcomePage> {
                         ),
                       ),
                     ],
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      prefs.setBool('isGuestLogin', true);
-                      Get.offAll(() => const HomePage());
-                    },
-                    child: const Text(
-                      'Login As a Guest & Decide later',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                   ),
                 ],
               ),

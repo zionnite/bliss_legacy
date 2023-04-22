@@ -4,6 +4,7 @@ import 'package:oga_bliss/bliss_legacy/bliss_controller/shop_controller.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_widget/clipper_object.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_widget/shop_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BlissShop extends StatefulWidget {
   const BlissShop({Key? key}) : super(key: key);
@@ -48,6 +49,8 @@ class _BlissShopState extends State<BlissShop> {
   bool isLoading = false;
   bool widgetLoading = true;
   String? payableBalance;
+  bool isJoin = false;
+  int? disId;
 
   @override
   void initState() {
@@ -106,14 +109,33 @@ class _BlissShopState extends State<BlissShop> {
                         itemBuilder: (BuildContext context, int index) {
                           var data = shopController.plansList[index];
                           return shopWidget(
-                            onTap: () {
-                              print('this clicked');
+                            onTap: () async {
+                              setState(() {
+                                //isJoin = true;
+                                disId = int.parse(data.disId!);
+                              });
+
+                              var planId = data.planId;
+                              var planCode = data.planCode;
+
+                              var link =
+                                  'http://localhost:8888/ogalandlord/Subscription/join_sub/$user_id/$planId/$planCode';
+
+                              Future.delayed(const Duration(seconds: 1),
+                                  () async {
+                                setState(() {
+                                  isJoin = false;
+                                });
+                                await _launchInBrowser(Uri.parse(link));
+                              });
                             },
                             planImg: '${data.planImage}',
                             planName: '${data.planName}',
                             planInterval: '${data.planInterval}',
                             planLimit: '${data.planLimit}',
                             planAmount: '${data.planAmount}',
+                            isLoading: isJoin,
+                            isSubscribe: data.isSubscribe!,
                           );
                         },
                       )),
@@ -152,5 +174,14 @@ class _BlissShopState extends State<BlissShop> {
               ),
       ),
     );
+  }
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

@@ -174,8 +174,8 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
               propertyCard(
-                bgColor1: Colors.green,
-                bgColor2: Colors.green.shade400,
+                bgColor1: Colors.blue,
+                bgColor2: Colors.blue.shade400,
                 title: 'Total Transaction',
                 value: '${model.totalTransaction}',
                 isNaira: false,
@@ -241,8 +241,8 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
               propertyCard(
-                bgColor1: Colors.green,
-                bgColor2: Colors.green.shade400,
+                bgColor1: Colors.blue,
+                bgColor2: Colors.blue.shade400,
                 title: 'Total Transaction',
                 value: '${model.totalTransaction}',
                 isNaira: false,
@@ -296,8 +296,8 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
               propertyCard(
-                bgColor1: Colors.green,
-                bgColor2: Colors.green.shade400,
+                bgColor1: Colors.blue,
+                bgColor2: Colors.blue.shade400,
                 title: 'Total Transaction',
                 value: '${model.totalTransaction}',
                 isNaira: false,

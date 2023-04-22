@@ -163,7 +163,7 @@ class _fundWalletState extends State<fundWallet> {
     } else if (wallet.transType == 'withdraw') {
       return smallBtn(
         btnName: 'Already Pull Out',
-        btnColor: Colors.green,
+        btnColor: Colors.blue,
         onTap: () {
           showSnackBar(
             title: 'Wallet Request',

@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_home.dart';
 import 'package:oga_bliss/controller/users_controller.dart';
+import 'package:oga_bliss/screen/front/signup_page.dart';
 
 import '../../widget/my_textfield_icon.dart';
-import 'decide_page.dart';
 import 'foreget_password.dart';
 
 class LoginPage extends StatefulWidget {
@@ -166,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.all(18.0),
               child: TextButton(
                 onPressed: () {
-                  Get.to(() => const DecidePage());
+                  Get.to(() => SignupPage(usersType: 'm_user'));
                 },
                 child: Align(
                   alignment: Alignment.center,

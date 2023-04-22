@@ -3,13 +3,14 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_controller/bliss_downline_controller.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_widget/clipper_object.dart';
+import 'package:oga_bliss/bliss_legacy/screen/bliss_downline.dart';
+import 'package:oga_bliss/bliss_legacy/screen/bliss_earning.dart';
 import 'package:oga_bliss/widget/show_not_found.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../util/currency_formatter.dart';
 import '../bliss_controller/account_report_controller.dart';
 import '../bliss_controller/bliss_transaction_controller.dart';
-import 'land_transaction.dart';
 
 class BlissDashboard extends StatefulWidget {
   const BlissDashboard({Key? key}) : super(key: key);
@@ -294,36 +295,41 @@ class _BlissDashboardState extends State<BlissDashboard> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 18.0, right: 10),
-                              child: Container(
-                                height: 40.0,
-                                width: 160.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: Colors.blue.shade900,
-                                  border: Border.all(
-                                    color: Colors.blue,
+                            InkWell(
+                              onTap: () {
+                                Get.to(() => const BlissEarning());
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 18.0, right: 10),
+                                child: Container(
+                                  height: 40.0,
+                                  width: 160.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30),
+                                    color: Colors.blue.shade900,
+                                    border: Border.all(
+                                      color: Colors.blue,
+                                    ),
                                   ),
-                                ),
-                                child: Center(
-                                  child: RichText(
-                                    text: const TextSpan(
-                                      text: 'Start Now',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                      children: [
-                                        WidgetSpan(
-                                          child: Icon(
-                                            Icons.chevron_right_outlined,
-                                            color: Colors.white,
-                                          ),
-                                          alignment:
-                                              PlaceholderAlignment.middle,
+                                  child: Center(
+                                    child: RichText(
+                                      text: const TextSpan(
+                                        text: 'Start Now',
+                                        style: TextStyle(
+                                          color: Colors.white,
                                         ),
-                                      ],
+                                        children: [
+                                          WidgetSpan(
+                                            child: Icon(
+                                              Icons.chevron_right_outlined,
+                                              color: Colors.white,
+                                            ),
+                                            alignment:
+                                                PlaceholderAlignment.middle,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -350,7 +356,7 @@ class _BlissDashboardState extends State<BlissDashboard> {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.to(() => const LandTransaction());
+                              Get.to(() => const BlissDownline());
                             },
                             child: Row(
                               children: const [
@@ -390,8 +396,8 @@ class _BlissDashboardState extends State<BlissDashboard> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
+                        children: const [
+                          Text(
                             'Recent Transaction',
                             style: TextStyle(
                               color: Colors.black,
@@ -399,25 +405,25 @@ class _BlissDashboardState extends State<BlissDashboard> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              Get.to(() => const LandTransaction());
-                            },
-                            child: Row(
-                              children: const [
-                                Text(
-                                  'View All',
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.chevron_right_outlined,
-                                  color: Colors.blue,
-                                )
-                              ],
-                            ),
-                          ),
+                          // InkWell(
+                          //   onTap: () {
+                          //     Get.to(() => const LandTransaction());
+                          //   },
+                          //   child: Row(
+                          //     children: const [
+                          //       Text(
+                          //         'View All',
+                          //         style: TextStyle(
+                          //           color: Colors.blue,
+                          //         ),
+                          //       ),
+                          //       Icon(
+                          //         Icons.chevron_right_outlined,
+                          //         color: Colors.blue,
+                          //       )
+                          //     ],
+                          //   ),
+                          // ),
                         ],
                       ),
                       const SizedBox(

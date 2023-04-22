@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:oga_bliss/bliss_legacy/bliss_model/account_report.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_model/card_activities.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_model/count_subscription_item.dart';
+import 'package:oga_bliss/bliss_legacy/bliss_model/join_subscription.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_model/subscription_list_model.dart';
 import 'package:oga_bliss/model/banklist_model.dart';
 import 'package:oga_bliss/model/dashboard_model.dart';
@@ -107,6 +108,7 @@ class ApiServices {
   static const String _get_subscription_counting = 'get_subscription_counting';
   static const String _toggle_disable_button = 'toggle_disable_button';
   static const String _send_request_to_email = 'send_request_to_email';
+  static const String _join_sub = 'join_sub';
 
   static Future getAllProducts(var page_num, var userId) async {
     try {
@@ -1966,7 +1968,7 @@ class ApiServices {
 
   static Future<String> resetPassword({required String email}) async {
     try {
-      final uri = Uri.parse('$_mybaseUrl$_resetPassword');
+      final uri = Uri.parse('$_mybaseUrlSec$_resetPassword');
 
       var response = await http.post(uri, body: {
         'email': email.toString(),
@@ -2490,7 +2492,8 @@ class ApiServices {
   }
 
   static Future<int> isAppHasNewUpdate() async {
-    final response = await http.get(Uri.parse('$_mybaseUrl$_has_new_update/'));
+    final response =
+        await http.get(Uri.parse('$_mybaseUrlSec$_has_new_update/'));
 
     Map<String, dynamic> j = json.decode(response.body);
     int counter = j['counter'];
@@ -2878,6 +2881,72 @@ class ApiServices {
         final j = json.decode(body) as Map<String, dynamic>;
         String status = j['status'];
         return status;
+      } else {
+        return showSnackBar(
+          title: 'Oops!',
+          msg: 'could not connect to server',
+          backgroundColor: Colors.red,
+        );
+      }
+    } catch (ex) {
+      return showSnackBar(
+        title: 'Oops!',
+        msg: ex.toString(),
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  static Future joinSubscription(var userId, var planId, var planCode) async {
+    try {
+      final uri = Uri.parse(
+          '$_mybaseUrlSec$_send_request_to_email/$userId/$planId/$planCode');
+
+      var response = await http.post(uri, body: {
+        'user_id': userId.toString(),
+        'plan_id': planId.toString(),
+        'plan_code': planCode.toString(),
+      });
+
+      if (response.statusCode == 200) {
+        var body = response.body;
+
+        final j = json.decode(body) as Map<String, dynamic>;
+        String status = j['status'];
+        var link = j['link'];
+        JoinSubscription(status: status, link: link);
+        if (status == 'success') {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return showSnackBar(
+          title: 'Oops!',
+          msg: 'could not connect to server',
+          backgroundColor: Colors.red,
+        );
+      }
+    } catch (ex) {
+      return showSnackBar(
+        title: 'Oops!',
+        msg: ex.toString(),
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  static Future<List<JoinSubscription?>?> joinSub(
+      var userId, var planId, var plancode) async {
+    try {
+      final uri = Uri.parse(
+          '$_mybaseUrlSec$_get_my_subscription/$userId/$planId/$plancode');
+
+      final result = await client.get(uri);
+
+      if (result.statusCode == 200) {
+        final data = joinSubscriptionFromJson(result.body);
+        return data;
       } else {
         return showSnackBar(
           title: 'Oops!',

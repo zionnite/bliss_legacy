@@ -173,7 +173,7 @@ class _TransactionPageState extends State<TransactionPage> {
                             trans.transType == 'complete_transafer')
                         ? const Icon(
                             Icons.trending_up,
-                            color: Colors.green,
+                            color: Colors.blue,
                           )
                         : const Icon(
                             Icons.trending_down,
@@ -183,7 +183,7 @@ class _TransactionPageState extends State<TransactionPage> {
                     date: trans.dateCreated.toString(),
                     trailingIcon: const Icon(
                       Icons.check,
-                      color: Colors.green,
+                      color: Colors.blue,
                     ),
                   );
                 } else if (trans.disStatus == 'cancel') {
@@ -192,7 +192,7 @@ class _TransactionPageState extends State<TransactionPage> {
                             trans.transType == 'complete_transafer')
                         ? const Icon(
                             Icons.trending_up,
-                            color: Colors.green,
+                            color: Colors.blue,
                           )
                         : const Icon(
                             Icons.trending_down,
@@ -211,7 +211,7 @@ class _TransactionPageState extends State<TransactionPage> {
                             trans.transType == 'complete_transafer')
                         ? const Icon(
                             Icons.trending_up,
-                            color: Colors.green,
+                            color: Colors.blue,
                           )
                         : const Icon(
                             Icons.trending_down,

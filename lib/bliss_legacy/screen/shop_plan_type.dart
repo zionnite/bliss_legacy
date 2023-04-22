@@ -280,14 +280,13 @@ class _ShopPlanTypeState extends State<ShopPlanType> {
               itemBuilder: (BuildContext context, int index) {
                 var data = shopController.disPlansList[index];
                 return shopWidget(
-                  onTap: () {
-                    print('this clicked');
-                  },
+                  onTap: () {},
                   planImg: '${data.planImage}',
                   planName: '${data.planName}',
                   planInterval: '${data.planInterval}',
                   planLimit: '${data.planLimit}',
                   planAmount: '${data.planAmount}',
+                  isSubscribe: data.isSubscribe!,
                 );
               },
             ),

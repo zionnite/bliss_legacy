@@ -182,7 +182,7 @@ class _PropertyWidgetState extends State<PropertyWidget> {
                             decoration: BoxDecoration(
                               color: (widget.props_type.toLowerCase() == "buy")
                                   ? Colors.red
-                                  : Colors.green,
+                                  : Colors.blue,
                               borderRadius: BorderRadius.circular(3),
                             ),
                             child: Text(

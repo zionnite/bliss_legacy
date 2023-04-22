@@ -310,7 +310,7 @@ class connectionWidget extends StatelessWidget {
                         ),
                         smallBtnIcon(
                           btnName: 'Message',
-                          btnColor: Colors.green,
+                          btnColor: Colors.blue,
                           onTap: onMessageTap,
                           icon: Icons.email,
                           icon_color: Colors.white,

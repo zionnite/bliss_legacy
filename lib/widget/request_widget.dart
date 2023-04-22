@@ -134,7 +134,7 @@ class _requestWidgetState extends State<requestWidget> {
     } else if (widget.user_status == 'user' && !widget.admin_status) {
       return smallBtn(
         btnName: 'View Agent',
-        btnColor: Colors.green,
+        btnColor: Colors.blue,
         onTap: () {
           Get.to(() => ViewUserProfile(
                 id: widget.requestModel.disUserId!,
@@ -147,7 +147,7 @@ class _requestWidgetState extends State<requestWidget> {
           children: [
             smallBtn(
               btnName: 'User',
-              btnColor: Colors.green,
+              btnColor: Colors.blue,
               onTap: () {
                 Get.to(() => ViewUserProfile(
                       id: widget.requestModel.disUserId!,

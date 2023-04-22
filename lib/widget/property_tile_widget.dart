@@ -140,7 +140,7 @@ class _PropertyTileWidgetState extends State<PropertyTileWidget> {
                         Container(
                           decoration: BoxDecoration(
                             color: (widget.props_type == 'Rent')
-                                ? Colors.green[400]
+                                ? Colors.blue[400]
                                 : Colors.red[400],
                             borderRadius: const BorderRadius.all(
                               Radius.circular(8),
