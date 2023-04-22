@@ -38,10 +38,6 @@ class _BlissShopState extends State<BlissShop> {
         user_status = user_status1;
         admin_status = admin_status1;
         isUserLogin = isUserLogin1;
-
-        //TODO: COME HERE AND DELETE THIS
-        user_id = '1';
-        admin_status = false;
       });
 
       await shopController.getPlans(1, user_id);
@@ -126,6 +122,34 @@ class _BlissShopState extends State<BlissShop> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: Obx(
+        () => (shopController.plansList.isNotEmpty)
+            ? Container()
+            : InkWell(
+                onTap: () {
+                  setState(() {
+                    shopController.isShoprocessing.value = 'null';
+                    shopController.getPlans(1, user_id);
+                    shopController.plansList.refresh();
+                  });
+                },
+                child: Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
+                  color: Colors.blue.shade900,
+                  child: const Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Icon(
+                      Icons.refresh,
+                      color: Colors.white,
+                      size: 25,
+                    ),
+                  ),
+                ),
+              ),
       ),
     );
   }

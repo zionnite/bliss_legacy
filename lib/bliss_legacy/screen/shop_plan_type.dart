@@ -42,14 +42,10 @@ class _ShopPlanTypeState extends State<ShopPlanType> {
         user_status = user_status1;
         admin_status = admin_status1;
         isUserLogin = isUserLogin1;
-
-        //TODO: COME HERE AND DELETE THIS
-        user_id = '1';
-        admin_status = false;
       });
 
       if (widget.planId == 'building' || widget.planId == 'land') {
-        await shopController.getDisPlansType(1, widget.planId, user_id);
+        await (shopController).getDisPlansType(1, widget.planId, user_id);
       } else {
         await shopController.getDisPlansInterval(1, widget.planId, user_id);
       }
@@ -74,7 +70,6 @@ class _ShopPlanTypeState extends State<ShopPlanType> {
         isLoading = true;
         current_page++;
       });
-      print('Scroolsup');
 
       if (widget.planId == 'building' || widget.planId == 'land') {
         await shopController.getDisPlansTypeMore(1, widget.planId, user_id);
@@ -171,6 +166,69 @@ class _ShopPlanTypeState extends State<ShopPlanType> {
         ),
       ),
     );
+  }
+
+  fabButtonClicked() async {
+    if (widget.planId == 'building' || widget.planId == 'land') {
+      return Obx(
+        () => (shopController.disPlansList.isNotEmpty)
+            ? Container()
+            : InkWell(
+                onTap: () {
+                  setState(() {
+                    shopController.isShopIntervalProcessing.value = 'null';
+                    shopController.getDisPlansType(1, widget.planId, user_id);
+                    shopController.disPlansList.refresh();
+                  });
+                },
+                child: Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
+                  color: Colors.blue.shade900,
+                  child: const Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Icon(
+                      Icons.refresh,
+                      color: Colors.white,
+                      size: 25,
+                    ),
+                  ),
+                ),
+              ),
+      );
+    } else {
+      return Obx(
+        () => (shopController.disPlansList.isNotEmpty)
+            ? Container()
+            : InkWell(
+                onTap: () {
+                  setState(() {
+                    shopController.isShopIntervalProcessing.value = 'null';
+                    shopController.getDisPlansInterval(
+                        1, widget.planId, user_id);
+                    shopController.disPlansList.refresh();
+                  });
+                },
+                child: Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
+                  color: Colors.blue.shade900,
+                  child: const Padding(
+                    padding: EdgeInsets.all(15.0),
+                    child: Icon(
+                      Icons.refresh,
+                      color: Colors.white,
+                      size: 25,
+                    ),
+                  ),
+                ),
+              ),
+      );
+    }
   }
 
   getData() {

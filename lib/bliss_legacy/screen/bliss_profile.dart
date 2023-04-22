@@ -513,11 +513,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     isLoading: isVerify,
                     card_margin: const EdgeInsets.only(
                       top: 8,
-                      bottom: 150,
+                      bottom: 10,
                       right: 8,
                       left: 8,
                     ),
                   ),
+            const SizedBox(
+              height: 40,
+            ),
           ],
         ),
       ),

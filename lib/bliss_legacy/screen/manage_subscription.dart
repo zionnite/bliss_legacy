@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterme_credit_card/flutterme_credit_card.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_controller/count_subscription_item_controller.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_model/subscription_list_model.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_widget/rounded_button.dart';
@@ -10,7 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../widget/property_card.dart';
 import '../bliss_controller/account_report_controller.dart';
 import '../bliss_controller/subscription_controller.dart';
-import 'land_transaction.dart';
 
 class ManageSubscription extends StatefulWidget {
   ManageSubscription({required this.data});
@@ -37,6 +37,7 @@ class _ManageSubscriptionState extends State<ManageSubscription> {
   String? totalBalance;
   String? desc;
   bool isLoading = false;
+  bool isDisableLoading = false;
   bool isCardLoading = false;
 
   late ScrollController _controller;
@@ -210,8 +211,8 @@ class _ManageSubscriptionState extends State<ManageSubscription> {
                     padding: const EdgeInsets.only(right: 160.0, top: 20.0),
                     child: Text(
                       '${data.planInterval} Plan',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w900),
                     ),
                   ),
                   const SizedBox(
@@ -247,7 +248,7 @@ class _ManageSubscriptionState extends State<ManageSubscription> {
                         title: 'Disable Subscription',
                         txtColor: Colors.white,
                         bgColor: Colors.blue.shade900,
-                        isLoading: isLoading,
+                        isLoading: isDisableLoading,
                         onTap: () async {
                           Get.defaultDialog(
                             title: "Action Needed",
@@ -258,7 +259,7 @@ class _ManageSubscriptionState extends State<ManageSubscription> {
                             confirmTextColor: Colors.white,
                             onConfirm: () async {
                               setState(() {
-                                isLoading = true;
+                                isDisableLoading = true;
                               });
 
                               String status = await subscriptionController
@@ -273,12 +274,12 @@ class _ManageSubscriptionState extends State<ManageSubscription> {
                                   status == 'false_2' ||
                                   status == 'true') {
                                 setState(() {
-                                  isLoading = false;
+                                  isDisableLoading = false;
                                   // Get.back();
                                 });
                               } else {
                                 setState(() {
-                                  isLoading = false;
+                                  isDisableLoading = false;
                                 });
                                 // Get.back();
                               }
@@ -349,8 +350,8 @@ class _ManageSubscriptionState extends State<ManageSubscription> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
+                        children: const [
+                          Text(
                             'Card Transaction Activities',
                             style: TextStyle(
                               color: Colors.black,
@@ -358,70 +359,38 @@ class _ManageSubscriptionState extends State<ManageSubscription> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              Get.to(() => const LandTransaction());
-                            },
-                            child: Row(
-                              children: const [
-                                // Text(
-                                //   'View All',
-                                //   style: TextStyle(
-                                //     color: Colors.blue,
-                                //   ),
-                                // ),
-                                // Icon(
-                                //   Icons.chevron_right_outlined,
-                                //   color: Colors.blue,
-                                // )
-                              ],
-                            ),
-                          ),
+                          // InkWell(
+                          //   onTap: () {
+                          //     Get.to(() => const LandTransaction());
+                          //   },
+                          //   child: Row(
+                          //     children: const [
+                          //       Text(
+                          //         'View All',
+                          //         style: TextStyle(
+                          //           color: Colors.blue,
+                          //         ),
+                          //       ),
+                          //       Icon(
+                          //         Icons.chevron_right_outlined,
+                          //         color: Colors.blue,
+                          //       )
+                          //     ],
+                          //   ),
+                          // ),
                         ],
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Obx(
-                        () => ListView.builder(
-                          padding: const EdgeInsets.only(top: 0, bottom: 120),
-                          physics: const ClampingScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount:
-                              subscriptionController.cardActivitiesList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            var fata = subscriptionController
-                                .cardActivitiesList[index];
-
-                            // String paidDate = DateFormat('EEEE, MMM d, yyyy')
-                            //     .format(fata.paidDate!);
-
-                            return Card(
-                              child: ListTile(
-                                title: Text(
-                                  CurrencyFormatter.getCurrencyFormatter(
-                                    amount: fata.amount!,
-                                  ),
-                                ),
-                                subtitle: Column(
-                                  children: [
-                                    Text(
-                                      fata.description!,
-                                    ),
-                                    Text(fata.paidDate!),
-                                  ],
-                                ),
-                                leading: Icon(
-                                  Icons.dark_mode,
-                                  color: (fata.status == 'success')
-                                      ? Colors.blue.shade900
-                                      : Colors.blue.shade300,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+                        () => (subscriptionController
+                                .cardActivitiesList.isEmpty)
+                            ? const Align(
+                                alignment: Alignment.topLeft,
+                                child: Text('Card activities will appear here'),
+                              )
+                            : getTrans(),
                       ),
                     ],
                   ),
@@ -430,6 +399,55 @@ class _ManageSubscriptionState extends State<ManageSubscription> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  getTrans() {
+    return Obx(
+      () => ListView.builder(
+        padding: const EdgeInsets.only(top: 0, bottom: 120),
+        physics: const ClampingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: subscriptionController.cardActivitiesList.length,
+        itemBuilder: (BuildContext context, int index) {
+          var fata = subscriptionController.cardActivitiesList[index];
+
+          // String paidDate = DateFormat('EEEE, MMM d, yyyy')
+          //     .format(fata.paidDate!);
+
+          var dateTime = DateTime.parse(fata.paidDate!);
+          String paidDate = DateFormat('EEEE, MMM d, yyyy').format(dateTime);
+
+          return Card(
+            child: ListTile(
+              title: Text(
+                CurrencyFormatter.getCurrencyFormatter(
+                  amount: fata.amount!,
+                ),
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    fata.description!,
+                  ),
+                  Text(
+                    paidDate,
+                    style: const TextStyle(),
+                  ),
+                ],
+              ),
+              leading: Icon(
+                Icons.dark_mode,
+                color: (fata.status == 'success')
+                    ? Colors.blue.shade900
+                    : Colors.blue.shade300,
+              ),
+            ),
+          );
+        },
       ),
     );
   }

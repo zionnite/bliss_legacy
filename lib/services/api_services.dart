@@ -1832,10 +1832,11 @@ class ApiServices {
     required String email,
     required String phone,
     required String password,
-    required String userType,
+    required String referalCode,
+    required String isMlm,
   }) async {
     try {
-      final uri = Uri.parse('$_mybaseUrl$_signup');
+      final uri = Uri.parse('$_mybaseUrlSec$_signup');
 
       var response = await http.post(uri, body: {
         'user_name': userName.toString(),
@@ -1843,7 +1844,8 @@ class ApiServices {
         'email': email.toString(),
         'phone': phone.toString(),
         'password': password.toString(),
-        'user_type': userType.toString(),
+        'is_mlm': isMlm.toString(),
+        'mlm_ref_code': referalCode.toString(),
       });
       if (response.statusCode == 200) {
         var body = response.body;

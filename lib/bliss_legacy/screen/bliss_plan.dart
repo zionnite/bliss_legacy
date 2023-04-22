@@ -46,9 +46,6 @@ class _BlissPlanState extends State<BlissPlan> {
         user_status = user_status1;
         admin_status = admin_status1;
         isUserLogin = isUserLogin1;
-
-        //TODO:// come to delete it
-        user_id = '35';
       });
 
       await accountReportController.getCounters(
@@ -205,8 +202,11 @@ class _BlissPlanState extends State<BlissPlan> {
     return (subscriptionController.myPlanList.isEmpty)
         ? const Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              'Your Plan will appear yer',
+            child: Padding(
+              padding: EdgeInsets.only(left: 8.0),
+              child: Text(
+                'Your Plan will appear yer',
+              ),
             ),
           )
         : Obx(

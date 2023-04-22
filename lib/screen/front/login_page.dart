@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:oga_bliss/bliss_legacy/bliss_home.dart';
 import 'package:oga_bliss/controller/users_controller.dart';
-import 'package:oga_bliss/home_page.dart';
 
 import '../../widget/my_textfield_icon.dart';
 import 'decide_page.dart';
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                               // Get.put(DashboardController());
                               // Get.put(RedirectController());
 
-                              Get.offAll(() => const HomePage());
+                              Get.offAll(() => const BlissHome());
                             } else {
                               setState(() {
                                 isLoading = false;

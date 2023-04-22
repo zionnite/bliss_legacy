@@ -1,4 +1,4 @@
-package com.ogabliss.oga_bliss
+package com.ogabliss.bliss_legacy
 
 import io.flutter.embedding.android.FlutterActivity
 

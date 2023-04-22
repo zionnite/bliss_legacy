@@ -144,7 +144,8 @@ class UsersController extends GetxController {
     required String email,
     required String phone,
     required String password,
-    required String usersType,
+    required String referalCode,
+    required String isMlm,
   }) async {
     String? msg;
     String status = await ApiServices.signUp(
@@ -153,7 +154,8 @@ class UsersController extends GetxController {
       email: email,
       phone: phone,
       password: password,
-      userType: usersType,
+      referalCode: referalCode,
+      isMlm: isMlm,
     );
     if (status == 'true') {
       msg = 'Account Creation was successful...';
