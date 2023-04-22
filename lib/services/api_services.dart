@@ -1880,7 +1880,7 @@ class ApiServices {
     required String password,
   }) async {
     try {
-      final uri = Uri.parse('$_mybaseUrl$_login');
+      final uri = Uri.parse('$_mybaseUrlSec$_login');
 
       var response = await http.post(uri, body: {
         'email': email.toString(),
@@ -1914,6 +1914,8 @@ class ApiServices {
           String prop_counter = j['agent_prop_counter'];
           bool admin_status = j['admin_status'];
           String isbank_verify = j['isbank_verify'];
+          String m_ref_code = j['m_ref_code'];
+          String m_ref_link = j['m_ref_link'];
 
           prefs.setString('user_id', user_id);
           prefs.setString('user_name', user_name);
@@ -1937,6 +1939,8 @@ class ApiServices {
           prefs.setString('isbank_verify', isbank_verify);
           prefs.setBool('isUserLogin', true);
           prefs.setBool('tempLoginStatus', true);
+          prefs.setString('m_ref_code', m_ref_code);
+          prefs.setString('m_ref_link', m_ref_link);
 
           return 'true';
         } else {
