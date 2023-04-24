@@ -59,9 +59,6 @@ class _ManageSubscriptionState extends State<ManageSubscription> {
         admin_status = admin_status1;
         isUserLogin = isUserLogin1;
         full_name = fullName1;
-
-        //TODO:// come to delete it
-        user_id = '35';
       });
 
       await accountReportController.getCounters(
