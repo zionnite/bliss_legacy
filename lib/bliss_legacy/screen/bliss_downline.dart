@@ -82,10 +82,40 @@ class _BlissDownlineState extends State<BlissDownline> {
       body: SingleChildScrollView(
         controller: _controller,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
               height: 70,
             ),
+            (Navigator.canPop(context))
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue.shade900,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(35),
+                          ),
+                          border: Border.all(
+                            color: Colors.blue,
+                          ),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : Container(),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
