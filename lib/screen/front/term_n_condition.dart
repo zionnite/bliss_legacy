@@ -5,7 +5,7 @@ class Terms_N_Conditions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.blue.shade900,
         title: const Text(
           'End-User License Agreement',
           style: TextStyle(
@@ -19,7 +19,7 @@ class Terms_N_Conditions extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                'End-User License Agreement (EULA) of Oga Bliss',
+                'End-User License Agreement (EULA) of Bliss Legacy',
                 style: TextStyle(fontSize: 30.0),
                 textAlign: TextAlign.center,
               ),

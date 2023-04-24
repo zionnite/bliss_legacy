@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:oga_bliss/home_page.dart';
+import 'package:oga_bliss/util/currency_formatter.dart';
 
 import '../../controller/splash_controller.dart';
 
@@ -30,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
     splashController.startAnimation();
 
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.blue.shade900,
       body: Stack(
         children: [
           Obx(
@@ -43,14 +43,14 @@ class _SplashPageState extends State<SplashPage> {
                 children: [
                   InkWell(
                     onTap: () {
-                      Get.to(() => const HomePage());
+                      // Get.to(() => const HomePage());
                     },
                     child: Image(
                       fit: BoxFit.contain,
                       image: const AssetImage('assets/images/happy_family.png'),
                       height: height * 0.6,
                       // width: 500,
-                      color: Colors.blue.withOpacity(1),
+                      color: Colors.blue.shade900.withOpacity(1),
                       colorBlendMode: BlendMode.color,
                     ),
                   ),
@@ -60,10 +60,10 @@ class _SplashPageState extends State<SplashPage> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.to(() => const HomePage());
+                              // Get.to(() => const HomePage());
                             },
                             child: const Text(
-                              'OgaBliss',
+                              'Bliss Legacy',
                               style: TextStyle(
                                 fontSize: 30,
                                 fontFamily: 'Passion One',
@@ -71,12 +71,13 @@ class _SplashPageState extends State<SplashPage> {
                               ),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 12.0),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
                             child: Text(
-                              'Bridging the Gap between Tenant and Landlord',
+                              'Become a Property Owner with ${CurrencyFormatter.getCurrencyFormatter(amount: '1000')} daily',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 // fontSize: 15,
                                 color: Colors.white,
                               ),

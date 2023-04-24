@@ -73,7 +73,7 @@ class _ForetPasswordPageState extends State<ForgetPasswordPage> {
                         foregroundColor: Colors.white,
                         shape: const RoundedRectangleBorder(),
                         side: const BorderSide(color: Colors.white),
-                        backgroundColor: Colors.blue,
+                        backgroundColor: Colors.blue.shade900,
                         padding: const EdgeInsets.symmetric(vertical: 20),
                       ),
                       onPressed: () async {

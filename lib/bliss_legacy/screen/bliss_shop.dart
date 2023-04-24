@@ -117,9 +117,12 @@ class _BlissShopState extends State<BlissShop> {
 
                               var planId = data.planId;
                               var planCode = data.planCode;
+                              //
+                              // var link =
+                              //     'http://localhost:8888/ogalandlord/Subscription/join_sub/$user_id/$planId/$planCode';
 
                               var link =
-                                  'http://localhost:8888/ogalandlord/Subscription/join_sub/$user_id/$planId/$planCode';
+                                  'https://ogabliss.com/Subscription/join_sub/$user_id/$planId/$planCode';
 
                               Future.delayed(const Duration(seconds: 1),
                                   () async {

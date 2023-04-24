@@ -11,7 +11,7 @@
     </item> -->
 
     <item>
-        <bitmap
+        <bitmap android:padding="20dp"
                 android:gravity="center"
                 android:src="@drawable/ic_launcher" />
     </item>

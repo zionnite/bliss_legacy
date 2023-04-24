@@ -38,7 +38,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           Obx(
             () => Positioned(
               bottom: 40,
-              child: (onboardingController.currentPage.value == 3)
+              child: (onboardingController.currentPage.value == 2)
                   ? InkWell(
                       onTap: () async {
                         SharedPreferences prefs =
@@ -104,11 +104,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
           Obx(
             () => Positioned(
               bottom: 25,
-              child: (onboardingController.currentPage.value == 3)
+              child: (onboardingController.currentPage.value == 2)
                   ? Container()
                   : AnimatedSmoothIndicator(
                       activeIndex: onboardingController.currentPage.value,
-                      count: 4,
+                      count: 3,
                       effect: const WormEffect(
                         activeDotColor: Colors.white,
                         dotHeight: 5.0,

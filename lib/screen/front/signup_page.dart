@@ -162,7 +162,7 @@ class _SignupPageState extends State<SignupPage> {
                           foregroundColor: Colors.white,
                           shape: const RoundedRectangleBorder(),
                           side: const BorderSide(color: Colors.white),
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Colors.blue.shade900,
                           padding: const EdgeInsets.symmetric(vertical: 20),
                         ),
                         onPressed: () async {
@@ -203,7 +203,7 @@ class _SignupPageState extends State<SignupPage> {
                                   title: 'Action Needed',
                                   msg:
                                       'An email has been sent to you please Verify the email',
-                                  backgroundColor: Colors.blue,
+                                  backgroundColor: Colors.blue.shade900,
                                   duration: const Duration(seconds: 45));
                               Get.offAll(() => const LoginPage());
                             } else {

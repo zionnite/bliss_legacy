@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:oga_bliss/bliss_legacy/bliss_controller/account_report_controller.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_controller/point_controller.dart';
-import 'package:oga_bliss/bliss_legacy/bliss_widget/rounded_button.dart';
-import 'package:oga_bliss/bliss_legacy/screen/earning_history.dart';
 import 'package:oga_bliss/widget/show_not_found.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../bliss_controller/account_report_controller.dart';
-
-class BlissEarning extends StatefulWidget {
-  const BlissEarning({Key? key}) : super(key: key);
+class EarningHistory extends StatefulWidget {
+  const EarningHistory({Key? key}) : super(key: key);
 
   @override
-  State<BlissEarning> createState() => _BlissEarningState();
+  State<EarningHistory> createState() => _EarningHistoryState();
 }
 
-class _BlissEarningState extends State<BlissEarning> {
+class _EarningHistoryState extends State<EarningHistory> {
   final pointItemController = PointItemController().getXID;
   final accountReportController = AccountReportController().getXID;
 
@@ -45,7 +42,7 @@ class _BlissEarningState extends State<BlissEarning> {
         isUserLogin = isUserLogin1;
       });
 
-      await pointItemController.getPointItem(1, user_id);
+      await pointItemController.getMyPointItem(1, user_id);
       await accountReportController.getCounters(
           user_id, admin_status, user_status);
     }
@@ -70,7 +67,7 @@ class _BlissEarningState extends State<BlissEarning> {
         current_page++;
       });
 
-      pointItemController.getPointItem(1, user_id);
+      pointItemController.getMyPointItemMore(1, user_id);
 
       Future.delayed(const Duration(seconds: 1), () {
         setState(() {
@@ -123,42 +120,26 @@ class _BlissEarningState extends State<BlissEarning> {
                 const Padding(
                   padding: EdgeInsets.only(right: 160.0, top: 20.0, left: 8),
                   child: Text(
-                    'Earning',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
+                    'Earning History',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                    ),
                   ),
                 ),
                 getCounters(),
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 8.0, right: 8),
-              child: Text(
-                  'With Bliss Legacy, you can earn and win, below are item that can be earn and won, You earn by points'),
-            ),
             Obx(
-              () => (pointItemController.isPointItemProcessing.value == 'null')
-                  ? Center(
-                      child: LoadingAnimationWidget.staggeredDotsWave(
-                        color: Colors.blue,
-                        size: 30,
-                      ),
-                    )
-                  : itemToEarn(),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Row(
-              children: [
-                RoundedButton(
-                  bgColor: Colors.blue.shade900,
-                  txtColor: Colors.white,
-                  title: 'View Earning History',
-                  onTap: () {
-                    Get.to(() => const EarningHistory());
-                  },
-                ),
-              ],
+              () =>
+                  (pointItemController.isMyPointItemProcessing.value == 'null')
+                      ? Center(
+                          child: LoadingAnimationWidget.staggeredDotsWave(
+                            color: Colors.blue,
+                            size: 30,
+                          ),
+                        )
+                      : getData(),
             ),
           ],
         ),
@@ -191,18 +172,19 @@ class _BlissEarningState extends State<BlissEarning> {
     );
   }
 
-  itemToEarn() {
+  getData() {
     return Obx(
-      () => (pointItemController.pointItemList.isEmpty)
+      () => (pointItemController.myPointItemList.isEmpty)
           ? const ShowNotFound()
           : ListView.builder(
               padding:
-                  const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 0),
+                  const EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 80),
               physics: const ClampingScrollPhysics(),
               shrinkWrap: true,
-              itemCount: pointItemController.pointItemList.length,
+              itemCount: pointItemController.myPointItemList.length,
               itemBuilder: (BuildContext context, int index) {
-                var data = pointItemController.pointItemList[index];
+                var data = pointItemController.myPointItemList[index];
+
                 return Column(
                   children: [
                     Card(
@@ -213,24 +195,46 @@ class _BlissEarningState extends State<BlissEarning> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
                             image: DecorationImage(
-                              image: NetworkImage(data.pointImage!),
+                              image: NetworkImage(data.downlineImage!),
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
                         title: Text(
-                          data.pointName!,
+                          data.downlineFullName!,
                           style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
-                        subtitle: Text(
-                          data.point!,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                          ),
+                        subtitle: Row(
+                          children: [
+                            Text(
+                              '${data.point!} Point',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            (data.status == 'not_claim')
+                                ? const Text(
+                                    'Pending',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.green,
+                                    ),
+                                  )
+                                : const Text(
+                                    'Claimed',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                          ],
                         ),
                       ),
                     ),

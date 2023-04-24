@@ -4,6 +4,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_controller/shop_controller.dart';
 import 'package:oga_bliss/widget/show_not_found.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../bliss_widget/shop_widget.dart';
 
@@ -56,6 +57,8 @@ class _ShopPlanTypeState extends State<ShopPlanType> {
   bool isLoading = false;
   bool widgetLoading = true;
   String? payableBalance;
+  bool isJoin = false;
+  int? disId;
 
   @override
   void initState() {
@@ -280,7 +283,27 @@ class _ShopPlanTypeState extends State<ShopPlanType> {
               itemBuilder: (BuildContext context, int index) {
                 var data = shopController.disPlansList[index];
                 return shopWidget(
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      //isJoin = true;
+                      disId = int.parse(data.disId!);
+                    });
+
+                    var planId = data.planId;
+                    var planCode = data.planCode;
+                    //
+                    // var link =
+                    //     'http://localhost:8888/ogalandlord/Subscription/join_sub/$user_id/$planId/$planCode';
+                    var link =
+                        'https://ogabliss.com/Subscription/join_sub/$user_id/$planId/$planCode';
+
+                    Future.delayed(const Duration(seconds: 1), () async {
+                      setState(() {
+                        isJoin = false;
+                      });
+                      await _launchInBrowser(Uri.parse(link));
+                    });
+                  },
                   planImg: '${data.planImage}',
                   planName: '${data.planName}',
                   planInterval: '${data.planInterval}',
@@ -291,5 +314,14 @@ class _ShopPlanTypeState extends State<ShopPlanType> {
               },
             ),
           );
+  }
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

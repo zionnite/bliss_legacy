@@ -19,7 +19,7 @@ class _WelcomePageState extends State<WelcomePage> {
     // splashController.startAnimation();
 
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.blue.shade900,
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(30),
@@ -31,7 +31,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     colorFilter: ColorFilter.mode(
-                        Colors.blue.withOpacity(0.9), BlendMode.color),
+                        Colors.blue.shade900.withOpacity(0.9), BlendMode.color),
                     fit: BoxFit.fitWidth,
                     image: const AssetImage('assets/images/connect_home.png'),
                   ),
@@ -41,14 +41,15 @@ class _WelcomePageState extends State<WelcomePage> {
                 children: const [
                   Text(
                     'Start Earning with Bliss Legacy',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 28,
+                      fontSize: 25,
                       fontFamily: 'Passion One',
                       color: Colors.white,
                     ),
                   ),
                   Text(
-                    'Become a Property Owner while you earn quick money with Bliss Legacy',
+                    'Become a Property Owner while you earn money with Bliss Legacy',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
@@ -57,7 +58,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ],
               ),
               const SizedBox(
-                height: 40,
+                height: 60,
               ),
               Column(
                 children: [
@@ -66,10 +67,10 @@ class _WelcomePageState extends State<WelcomePage> {
                       Expanded(
                         child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
-                            foregroundColor: Colors.blue.shade700,
+                            foregroundColor: Colors.blue.shade900,
                             backgroundColor: Colors.white,
                             shape: const RoundedRectangleBorder(),
-                            side: const BorderSide(color: Colors.blue),
+                            side: BorderSide(color: Colors.blue.shade900),
                             padding: const EdgeInsets.symmetric(vertical: 20),
                           ),
                           onPressed: () {
@@ -93,7 +94,7 @@ class _WelcomePageState extends State<WelcomePage> {
                             foregroundColor: Colors.white,
                             shape: const RoundedRectangleBorder(),
                             side: const BorderSide(color: Colors.white),
-                            backgroundColor: Colors.blue,
+                            backgroundColor: Colors.blue.shade900,
                             padding: const EdgeInsets.symmetric(vertical: 20),
                           ),
                           onPressed: () {

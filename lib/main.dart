@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_controller/count_subscription_item_controller.dart';
+import 'package:oga_bliss/bliss_legacy/bliss_controller/point_controller.dart';
 import 'package:oga_bliss/controller/dashboard_controller.dart';
 import 'package:oga_bliss/controller/redirect_controller.dart';
 import 'package:oga_bliss/screen/front/splash_page.dart';
@@ -46,6 +46,7 @@ void main() async {
   Get.put(ShopController());
   Get.put(SubscriptionController());
   Get.put(CountSubscriptionItemController());
+  Get.put(PointItemController());
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var isUserLogin = prefs.getBool('isUserLogin');

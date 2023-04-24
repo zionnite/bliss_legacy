@@ -7,6 +7,8 @@ import 'package:oga_bliss/bliss_legacy/bliss_model/account_report.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_model/card_activities.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_model/count_subscription_item.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_model/join_subscription.dart';
+import 'package:oga_bliss/bliss_legacy/bliss_model/my_point_item.dart';
+import 'package:oga_bliss/bliss_legacy/bliss_model/point_items.dart';
 import 'package:oga_bliss/bliss_legacy/bliss_model/subscription_list_model.dart';
 import 'package:oga_bliss/model/banklist_model.dart';
 import 'package:oga_bliss/model/dashboard_model.dart';
@@ -31,10 +33,11 @@ import '../widget/my_raidio_field.dart';
 
 class ApiServices {
   static var client = http.Client();
-  static const String _mybaseUrl = 'http://localhost:8888/ogalandlord/Api/';
-  static const String _mybaseUrlSec =
-      'http://localhost:8888/ogalandlord/ApiMlm/';
-  // static const String _mybaseUrl = 'https://ogabliss.com/Api/';
+  // static const String _mybaseUrl = 'http://localhost:8888/ogalandlord/Api/';
+  // static const String _mybaseUrlSec =
+  //     'http://localhost:8888/ogalandlord/ApiMlm/';
+  static const String _mybaseUrl = 'https://ogabliss.com/Api/';
+  static const String _mybaseUrlSec = 'https://ogabliss.com/ApiMlm/';
 
   static const String _all_product = 'get_all_product';
   static const String _toggle_product = 'toggle_product';
@@ -109,6 +112,8 @@ class ApiServices {
   static const String _toggle_disable_button = 'toggle_disable_button';
   static const String _send_request_to_email = 'send_request_to_email';
   static const String _join_sub = 'join_sub';
+  static const String _get_all_point_items = 'get_all_point_items';
+  static const String _get_my_point_items = 'get_my_point_items';
 
   static Future getAllProducts(var page_num, var userId) async {
     try {
@@ -599,7 +604,6 @@ class ApiServices {
       }
     } catch (ex) {
       // print(ex);
-
     }
   }
 
@@ -2947,6 +2951,82 @@ class ApiServices {
       if (result.statusCode == 200) {
         final data = joinSubscriptionFromJson(result.body);
         return data;
+      } else {
+        return showSnackBar(
+          title: 'Oops!',
+          msg: 'could not connect to server',
+          backgroundColor: Colors.red,
+        );
+      }
+    } catch (ex) {
+      return showSnackBar(
+        title: 'Oops!',
+        msg: ex.toString(),
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  static Future<List<PointItem?>?> getAllPointItem(
+      var pageNum, var userId) async {
+    try {
+      final uri =
+          Uri.parse('$_mybaseUrlSec$_get_all_point_items/$pageNum/$userId');
+
+      final result = await client.get(uri);
+
+      if (result.statusCode == 200) {
+        var body = result.body;
+
+        final j = json.decode(body) as Map<String, dynamic>;
+        String status = j['status'];
+        if (status == 'success') {
+          var disData = j['point_item'] as List;
+
+          final data = disData
+              .map<PointItem>((json) => PointItem.fromJson(json))
+              .toList();
+
+          return data;
+        }
+      } else {
+        return showSnackBar(
+          title: 'Oops!',
+          msg: 'could not connect to server',
+          backgroundColor: Colors.red,
+        );
+      }
+    } catch (ex) {
+      return showSnackBar(
+        title: 'Oops!',
+        msg: ex.toString(),
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+
+  static Future<List<MyPointItem?>?> getMyPointItem(
+      var pageNum, var userId) async {
+    try {
+      final uri =
+          Uri.parse('$_mybaseUrlSec$_get_my_point_items/$pageNum/$userId');
+
+      final result = await client.get(uri);
+
+      if (result.statusCode == 200) {
+        var body = result.body;
+
+        final j = json.decode(body) as Map<String, dynamic>;
+        String status = j['status'];
+        if (status == 'success') {
+          var disData = j['my_point_item'] as List;
+
+          final data = disData
+              .map<MyPointItem>((json) => MyPointItem.fromJson(json))
+              .toList();
+
+          return data;
+        }
       } else {
         return showSnackBar(
           title: 'Oops!',
