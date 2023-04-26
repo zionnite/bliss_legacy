@@ -75,9 +75,11 @@ class _ShopPlanTypeState extends State<ShopPlanType> {
       });
 
       if (widget.planId == 'building' || widget.planId == 'land') {
-        await shopController.getDisPlansTypeMore(1, widget.planId, user_id);
+        await shopController.getDisPlansTypeMore(
+            current_page, widget.planId, user_id);
       } else {
-        await shopController.getDisPlansIntervalMore(1, widget.planId, user_id);
+        await shopController.getDisPlansIntervalMore(
+            current_page, widget.planId, user_id);
       }
 
       Future.delayed(const Duration(seconds: 1), () {

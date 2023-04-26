@@ -33,11 +33,11 @@ import '../widget/my_raidio_field.dart';
 
 class ApiServices {
   static var client = http.Client();
-  // static const String _mybaseUrl = 'http://localhost:8888/ogalandlord/Api/';
-  // static const String _mybaseUrlSec =
-  //     'http://localhost:8888/ogalandlord/ApiMlm/';
-  static const String _mybaseUrl = 'https://ogabliss.com/Api/';
-  static const String _mybaseUrlSec = 'https://ogabliss.com/ApiMlm/';
+  static const String _mybaseUrl = 'http://localhost:8888/ogalandlord/Api/';
+  static const String _mybaseUrlSec =
+      'http://localhost:8888/ogalandlord/ApiMlm/';
+  // static const String _mybaseUrl = 'https://ogabliss.com/Api/';
+  // static const String _mybaseUrlSec = 'https://ogabliss.com/ApiMlm/';
 
   static const String _all_product = 'get_all_product';
   static const String _toggle_product = 'toggle_product';
@@ -2675,6 +2675,7 @@ class ApiServices {
         if (status == 'success') {
           var disData = j['plans'] as List;
 
+
           final data =
               disData.map<Plan>((json) => Plan.fromJson(json)).toList();
 
@@ -2711,6 +2712,7 @@ class ApiServices {
         String status = j['status'];
         if (status == 'success') {
           var disData = j['plans'] as List;
+
 
           final data =
               disData.map<Plan>((json) => Plan.fromJson(json)).toList();
