@@ -23,6 +23,7 @@ class _BlissShopState extends State<BlissShop> {
   String? user_status;
   bool? admin_status;
   bool? isUserLogin;
+  String? isbank_verify;
 
   initUserDetail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -31,6 +32,7 @@ class _BlissShopState extends State<BlissShop> {
     var user_status1 = prefs.getString('user_status');
     var admin_status1 = prefs.getBool('admin_status');
     var isUserLogin1 = prefs.getBool('isUserLogin');
+    var isbank_verify1 = prefs.getString('isbank_verify');
 
     if (mounted) {
       setState(() {
@@ -39,6 +41,7 @@ class _BlissShopState extends State<BlissShop> {
         user_status = user_status1;
         admin_status = admin_status1;
         isUserLogin = isUserLogin1;
+        isbank_verify = isbank_verify1;
       });
 
       await shopController.getPlans(1, user_id);
@@ -76,6 +79,7 @@ class _BlissShopState extends State<BlissShop> {
     }
   }
 
+  onTapClick() async {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,27 +114,44 @@ class _BlissShopState extends State<BlissShop> {
                           var data = shopController.plansList[index];
                           return shopWidget(
                             onTap: () async {
-                              setState(() {
-                                //isJoin = true;
-                                disId = int.parse(data.disId!);
-                              });
-
-                              var planId = data.planId;
-                              var planCode = data.planCode;
-                              //
-                              // var link =
-                              //     'http://localhost:8888/ogalandlord/Subscription/join_sub/$user_id/$planId/$planCode';
-
-                              var link =
-                                  'https://ogabliss.com/Subscription/join_sub/$user_id/$planId/$planCode';
-
-                              Future.delayed(const Duration(seconds: 1),
-                                  () async {
+                              if (isbank_verify == 'yes') {
                                 setState(() {
-                                  isJoin = false;
+                                  //isJoin = true;
+                                  disId = int.parse(data.disId!);
                                 });
-                                await _launchInBrowser(Uri.parse(link));
-                              });
+
+                                var planId = data.planId;
+                                var planCode = data.planCode;
+
+                                var link =
+                                    'https://ogabliss.com/Subscription/join_sub/$user_id/$planId/$planCode';
+
+                                Future.delayed(
+                                  const Duration(seconds: 1),
+                                  () async {
+                                    setState(() {
+                                      isJoin = false;
+                                    });
+                                    await _launchInBrowser(Uri.parse(link));
+                                  },
+                                );
+                              } else {
+                                Get.defaultDialog(
+                                  title: 'Action Required',
+                                  middleText: '',
+                                  content: const Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 18.0, right: 18),
+                                    child: Text(
+                                      'Your Bank account it\'s not verify, please go to your profile to edit your bank details and click verify',
+                                      style: TextStyle(),
+                                    ),
+                                  ),
+                                  textCancel: 'Cancel',
+                                  onCancel: () {},
+                                  radius: 5,
+                                );
+                              }
                             },
                             planImg: '${data.planImage}',
                             planName: '${data.planName}',

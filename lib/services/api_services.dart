@@ -2675,7 +2675,6 @@ class ApiServices {
         if (status == 'success') {
           var disData = j['plans'] as List;
 
-
           final data =
               disData.map<Plan>((json) => Plan.fromJson(json)).toList();
 
@@ -2712,7 +2711,6 @@ class ApiServices {
         String status = j['status'];
         if (status == 'success') {
           var disData = j['plans'] as List;
-
 
           final data =
               disData.map<Plan>((json) => Plan.fromJson(json)).toList();
@@ -2883,6 +2881,8 @@ class ApiServices {
 
       if (response.statusCode == 200) {
         var body = response.body;
+
+        print(body);
 
         final j = json.decode(body) as Map<String, dynamic>;
         String status = j['status'];
